@@ -1,0 +1,16 @@
+
+DROP TABLE IF EXISTS equipos_fase;
+
+DROP TABLE IF EXISTS partido;
+
+DROP TABLE IF EXISTS presupuesto;
+
+DROP TABLE IF EXISTS economia;
+
+DROP TABLE IF EXISTS documentos;
+
+DROP TABLE IF EXISTS equipos;
+
+DROP TABLE IF EXISTS fase;
+
+DROP TABLE IF EXISTS usuarios;
