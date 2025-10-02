@@ -39,7 +39,8 @@ CREATE TABLE partido (
     goles_visitante INT DEFAULT 0,
     fase_id INT REFERENCES fase(id) ON DELETE SET NULL,
     estado VARCHAR(50) DEFAULT 'pendiente', -- pendiente / en progreso / finalizado
-    campo INT NOT NULL
+    campo INT NOT NULL,
+    tipo VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE presupuesto (

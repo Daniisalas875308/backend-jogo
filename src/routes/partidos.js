@@ -54,7 +54,8 @@ router.get("/por-dia/:fecha", async (req, res) => {
         goles_visitante,
         fase:fase_id ( id, nombre ),
         estado,
-        campo
+        campo,
+        tipo
       `)
       .gte("fecha", startISO)
       .lt("fecha", endISO)
@@ -96,6 +97,7 @@ router.get("/por-dia/:fecha", async (req, res) => {
       fase_id: p.fase,
       estado: p.estado,
       campo: p.campo,
+      tipo: p.tipo,
     }));
 
     res.json(result);

@@ -9,4 +9,9 @@ VALUES
 ('Octavos', 'pendiente'),
 ('Cuartos', 'pendiente'),
 ('Semifinal', 'pendiente'),
-('Final', 'pendiente');
+('Final', 'pendiente'),
+('Final Junior', 'pendiente'),
+('Retos de puntería y toques - Sorteo', 'pendiente'),
+('Torneo 1 vs 1', 'pendiente'),
+('Ceremonia entrega trofeos', 'pendiente');
+

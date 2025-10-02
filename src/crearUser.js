@@ -16,4 +16,4 @@ async function createUser(nombre, password) {
 }
 
 // Cambia el nombre y la contraseña aquí para probar
-createUser('Carlos Rio', '12345');
+createUser('Samuel Castillo', 'SaMuEl.05');
