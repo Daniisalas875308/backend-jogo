@@ -1,2 +1,4 @@
 *.env
 crearUser.js
+sql/
+node_modules/
