@@ -29,11 +29,23 @@ const io = new Server(httpServer, {
 
 app.use(express.json());
 
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  process.env.FRONTEND_COM,
+  process.env.FRONTEND_ES,
+  "http://localhost:3000"
+];
 const PORT = process.env.PORT || 5000;
 
 // habilita CORS solo para el frontend local
 app.use(cors({
-  origin: process.env.FRONTEND_URL || process.env.FRONTEND_COM || process.env.FRONTEND_ES || "http://localhost:3000",
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS: ' + origin));
+    }
+  },
   credentials: true
 }));
 
