@@ -88,6 +88,19 @@ io.on("connection", (socket) => {
     console.log(`👋 Cliente ${socket.id} dejó de seguir fase ${faseId}`);
   });
 
+  socket.on("join_marcador", () => {
+    socket.join("room_marcador");
+    console.log(`🖥️ Marcador ${socket.id} listo para recibir partidos`);
+  });
+
+  // El Admin envía los partidos y el servidor los reenvía a la sala del marcador
+  socket.on("cambiar_partidos_marcador", (partidos) => {
+    console.log("📢 Admin cambió partidos del marcador:", partidos.map(p => p.id));
+    
+    // Lo enviamos a todos los que estén en la "room_marcador"
+    io.to("room_marcador").emit("cambiar_partidos_marcador", partidos);
+  });
+
   socket.on("disconnect", () => {
     console.log("❌ Cliente desconectado:", socket.id);
   });
