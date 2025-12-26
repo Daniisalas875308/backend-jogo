@@ -8,6 +8,7 @@ import documentosRoutes from "./routes/documentos.js";
 import fasesRoutes from "./routes/fases.js";
 import economiaRoutes from "./routes/economia.js";
 import presupuestoRoutes from "./routes/presupuesto.js";
+import marcadorRoutes from "./routes/marcador.js";
 import cors from "cors";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -67,6 +68,8 @@ app.use("/api/documentos", documentosRoutes);
 app.use("/api/fases", fasesRoutes);
 app.use("/api/economia", economiaRoutes);
 app.use("/api/presupuesto", presupuestoRoutes);
+app.use("/api/marcador", marcadorRoutes);
+
 
 // 🔥 EVENTOS DE SOCKET.IO
 io.on("connection", (socket) => {
