@@ -83,5 +83,56 @@ router.post("/", async (req, res) => {
   }
 });
 
+// PUT toggle corriendo de todos los partidos
+router.put('/estado-global', async (req, res) => {
+  const { corriendo } = req.body; // boolean
+  if (typeof corriendo !== 'boolean') return res.status(400).json({ error: 'Corriendo debe ser booleano' });
+
+  try {
+    // Actualizar los dos partidos del marcador
+    const { data, error } = await supabase
+      .from("marcador")
+      .update({ corriendo })
+      .limit(2); // solo los primeros 2 registros
+    if (error) throw error;
+
+    res.json({ corriendo, data });
+  } catch (err) {
+    console.error("Error actualizando cronómetro global:", err);
+    res.status(500).json({ error: 'Error actualizando cronómetro global' });
+  }
+});
+
+// Obtener todos los partidos del marcador (máximo 2)
+export const getTodosLosPartidosMarcador = async () => {
+  const { data, error } = await supabase
+    .from('marcador')
+    .select('*')
+    .limit(2);
+
+  if (error) {
+    console.error("Error obteniendo partidos del marcador:", error);
+    throw error;
+  }
+
+  return data;
+};
+
+// Actualizar el estado corriendo de todos los partidos
+export const actualizarCorriendoPartidos = async (nuevoEstado) => {
+  const { data, error } = await supabase
+    .from('marcador')
+    .update({ corriendo: nuevoEstado })
+    .neq('id', 0); // Esto actúa como un "WHERE id != 0", es un truco para actualizar todo
+
+  if (error) {
+    console.error("Error actualizando corriendo:", error);
+    throw error;
+  }
+
+  return data;
+};
+
+
 
 export default router;

@@ -13,6 +13,8 @@ import cors from "cors";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { getUserByNombre } from './routes/usuarios.js';
+import { getTodosLosPartidosMarcador, actualizarCorriendoPartidos } from './routes/marcador.js';
+
 
 const app = express();
 
@@ -110,6 +112,20 @@ io.on("connection", (socket) => {
     // Lo enviamos a todos los que estén en la "room_marcador"
     io.to("room_marcador").emit("cambiar_partidos_marcador", partidos);
   });
+  
+  socket.on("cronometro_cambiar_estado_global", async () => {
+    try {
+      const partidos = await getTodosLosPartidosMarcador();
+      console.log("⏯️ Cambiando estado global del cronómetro antes de todo:", partidos[0].corriendo);
+      const nuevoEstado = !partidos[0].corriendo; // Como siempre hay dos partidos, tomamos el primero
+      console.log("⏯️ Cambiando estado global del cronómetro a:", nuevoEstado);
+      await actualizarCorriendoPartidos(nuevoEstado);
+      io.emit("cronometro_cambiar_estado_global", { corriendo: nuevoEstado });
+    } catch (err) {
+      console.error("Error cambiando estado global cronómetro:", err);
+    }
+  });
+
 
   socket.on("disconnect", () => {
     console.log("❌ Cliente desconectado:", socket.id);
